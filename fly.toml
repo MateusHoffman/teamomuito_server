@@ -1,9 +1,4 @@
-# fly.toml app configuration file generated for iloveyou-backend on 2024-09-19T00:25:21-03:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
-app = 'iloveyou-backend'
+app = 'teamomuito-server'
 primary_region = 'gru'
 
 [build]
