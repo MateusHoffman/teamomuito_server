@@ -27,8 +27,8 @@ const PurchaseDataSchema: Schema = new Schema({
   womanName: { type: String, required: true },
   startDate: { type: String, required: true },
   startTime: { type: String, required: true },
-  message: { type: String, required: true },
-  youtubeLink: { type: String, required: true },
+  message: { type: String, default: "" },
+  youtubeLink: { type: String, default: "" },
   photos: { type: [String], required: true },
 });
 
