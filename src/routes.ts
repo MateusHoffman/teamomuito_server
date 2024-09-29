@@ -25,7 +25,7 @@ router.post("/checkout", async (req: Request, res: Response) => {
     const cancelUrl = `${process.env.CLIENT_URL}`;
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card', 'boleto'],
+      payment_method_types: ['card'],
       line_items: [
         {
           price: "price_1Q0a76P17dwzDq34rjE0nJtZ",
