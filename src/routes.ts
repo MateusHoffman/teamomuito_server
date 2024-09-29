@@ -21,7 +21,7 @@ router.post("/checkout", async (req: Request, res: Response) => {
   );
 
   try {
-    const successUrl = `${process.env.CLIENT_URL}/${slug}`;
+    const successUrl = `${process.env.CLIENT_URL}/${slug}/QRCode`;
     const cancelUrl = `${process.env.CLIENT_URL}`;
 
     const session = await stripe.checkout.sessions.create({
