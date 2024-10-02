@@ -1,10 +1,12 @@
 import express from "express";
 import cors from "cors";
-// import allRoutes from "./routes";
+
 import { connectDatabase } from "./config/database";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
+
 import mercadoPagoRouter from "./routes/mercadoPagoRoutes";
 import purchaseRouter from "./routes/purchaseRoutes";
+import emailRouter from "./routes/emailRoutes";
 
 const app = express();
 
@@ -25,6 +27,7 @@ connectDatabase();
 // Rotas
 app.use("/api", mercadoPagoRouter);
 app.use("/api", purchaseRouter);
+app.use("/api", emailRouter);
 
 app.use(errorMiddleware);
 

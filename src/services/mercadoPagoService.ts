@@ -8,7 +8,7 @@ export const createCodePix = async (req: Request) => {
   const content = {
     description: "Te Amo Muito - Presente",
     payer: {
-      email: process.env.MEU_EMAIL,
+      email: body?.email,
     },
     payment_method_id: "pix",
     transaction_amount: 0.01,

@@ -47,8 +47,7 @@ export const errorMiddleware = (
     success: false,
     statusCode,
     message,
-    // Exibe o stack trace apenas em ambiente de desenvolvimento
-    stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
+    stack: err.stack,
   });
 };
 
