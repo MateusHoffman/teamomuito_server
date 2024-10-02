@@ -1,3 +1,8 @@
+# fly.toml app configuration file generated for teamomuito-server on 2024-10-01T23:29:51-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
 app = 'teamomuito-server'
 primary_region = 'gru'
 
