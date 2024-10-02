@@ -1,5 +1,3 @@
-// import User, { IUser } from '../models/userModel';
-
 import axios from "axios";
 import { Request } from "express";
 
@@ -26,21 +24,27 @@ export const createCodePix = async (req: Request) => {
 
   try {
     const response = await axios.post(url, content, { headers });
-    const qr_code =
-      response?.data?.point_of_interaction?.transaction_data?.qr_code;
-    const paymentId = response?.data?.id;
-    const paymentStatus = response?.data?.status;
 
-    await axios.post(`${process.env.SERVER_URL}/api/createPurchase`, {
-      ...body,
-      paymentId,
-      qr_code,
-      paymentStatus,
-    });
+    if (response?.data) {
+      const qr_code =
+        response.data.point_of_interaction?.transaction_data?.qr_code;
+      const paymentId = response.data.id;
+      const paymentStatus = response.data.status;
 
-    return qr_code;
+      await axios.post(`${process.env.SERVER_URL}/api/createPurchase`, {
+        ...body,
+        paymentId,
+        qr_code,
+        paymentStatus,
+      });
+
+      return qr_code;
+    } else {
+      throw new Error("Resposta da API está vazia ou inválida.");
+    }
   } catch (error) {
     console.error("Erro createCodePix:", error);
+    throw error; // Re-throw the error to handle it in the calling function
   }
 };
 
