@@ -8,16 +8,16 @@ interface PurchaseData {
   startTime: string;
   message: string;
   youtubeLink: string;
-  photos: string[]; // Array de strings
+  photos: string[];
 }
 
 // Definindo a interface Purchase, extendendo Document do Mongoose
 export interface Purchase extends Document {
   slug: string;
-  paid: boolean;
-  email: string;
-  name: string;
-  created: string; // Se você preferir, pode usar Date
+  paymentId?: string;
+  qr_code?: string;
+  paymentStatus: string;
+  created: Date;
   data: PurchaseData;
 }
 
@@ -29,16 +29,16 @@ const PurchaseDataSchema: Schema = new Schema({
   startTime: { type: String, required: true },
   message: { type: String, default: "" },
   youtubeLink: { type: String, default: "" },
-  photos: { type: [String], required: true },
+  photos: { type: [String], default: [] },
 });
 
 // Criando o schema para Purchase
 const PurchaseSchema: Schema = new Schema({
   slug: { type: String, required: true, unique: true },
-  email: { type: String, default: "" },
-  name: { type: String, default: "" },
-  created: { type: String, default: "" },
-  paid: { type: Boolean, default: false },
+  paymentId: { type: String, default: "" },
+  qr_code: { type: String, default: "" },
+  paymentStatus: { type: String, default: "pending" },
+  created: { type: Date, default: Date.now },
   data: { type: PurchaseDataSchema, required: true },
 });
 
