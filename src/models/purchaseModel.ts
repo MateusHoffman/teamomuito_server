@@ -1,6 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-// Definindo a interface PurchaseData
 interface PurchaseData {
   manName: string;
   womanName: string;
@@ -8,12 +7,13 @@ interface PurchaseData {
   startTime: string;
   message: string;
   youtubeLink: string;
-  photos: string[];
+  photoId: mongoose.Types.ObjectId;
+  photos?: string[];
 }
 
-// Definindo a interface Purchase, extendendo Document do Mongoose
 export interface Purchase extends Document {
   slug: string;
+  email: string;
   paymentId?: string;
   qr_code?: string;
   paymentStatus: string;
@@ -21,7 +21,6 @@ export interface Purchase extends Document {
   data: PurchaseData;
 }
 
-// Criando o schema para PurchaseData
 const PurchaseDataSchema: Schema = new Schema({
   manName: { type: String, required: true },
   womanName: { type: String, required: true },
@@ -29,12 +28,12 @@ const PurchaseDataSchema: Schema = new Schema({
   startTime: { type: String, required: true },
   message: { type: String, default: "" },
   youtubeLink: { type: String, default: "" },
-  photos: { type: [String], default: [] },
+  photoId: { type: mongoose.Types.ObjectId, required: true, ref: "Photo" },
 });
 
-// Criando o schema para Purchase
 const PurchaseSchema: Schema = new Schema({
   slug: { type: String, required: true, unique: true },
+  email: { type: String, required: true },
   paymentId: { type: String, default: "" },
   qr_code: { type: String, default: "" },
   paymentStatus: { type: String, default: "pending" },
@@ -42,7 +41,6 @@ const PurchaseSchema: Schema = new Schema({
   data: { type: PurchaseDataSchema, required: true },
 });
 
-// Criando o modelo
 const PurchaseModel = mongoose.model<Purchase>("Purchase", PurchaseSchema);
 
 export default PurchaseModel;
