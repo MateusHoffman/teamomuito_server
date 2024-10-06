@@ -4,9 +4,10 @@ import cors from "cors";
 import { connectDatabase } from "./config/database";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 
-import mercadoPagoRouter from "./routes/mercadoPagoRoutes";
-import purchaseRouter from "./routes/purchaseRoutes";
-import emailRouter from "./routes/emailRoutes";
+import mercadoPagoRoutes from "./routes/mercadoPagoRoutes";
+import purchaseRoutes from "./routes/purchaseRoutes";
+import emailRoutes from "./routes/emailRoutes";
+import imageRoutes from "./routes/imageRoutes";
 
 const app = express();
 
@@ -25,9 +26,10 @@ app.use(express.urlencoded({ limit: "200mb", extended: true }));
 connectDatabase();
 
 // Rotas
-app.use("/api", mercadoPagoRouter);
-app.use("/api", purchaseRouter);
-app.use("/api", emailRouter);
+app.use("/api", mercadoPagoRoutes);
+app.use("/api", purchaseRoutes);
+app.use("/api", emailRoutes);
+app.use("/api", imageRoutes);
 
 app.use(errorMiddleware);
 

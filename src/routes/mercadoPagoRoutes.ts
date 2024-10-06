@@ -4,7 +4,6 @@ import {
   notification,
 } from "../controllers/mercadoPagoController";
 
-
 const mercadoPagoRouter = Router();
 
 mercadoPagoRouter.post("/createCodePix", createCodePix);

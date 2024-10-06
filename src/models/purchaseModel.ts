@@ -1,35 +1,23 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-interface PurchaseData {
-  manName: string;
-  womanName: string;
-  startDate: string;
-  startTime: string;
-  message: string;
-  youtubeLink: string;
-  photoId: mongoose.Types.ObjectId;
-  photos?: string[];
-}
 
-export interface Purchase extends Document {
+export interface Purchase {
   slug: string;
   email: string;
   paymentId?: string;
   qr_code?: string;
-  paymentStatus: string;
-  created: Date;
-  data: PurchaseData;
+  paymentStatus?: string;
+  created?: Date;
+  data: {
+    manName: string;
+    womanName: string;
+    startDate: string;
+    startTime: string;
+    message: string;
+    youtubeLink: string;
+    photos: string[];
+  };
 }
-
-const PurchaseDataSchema: Schema = new Schema({
-  manName: { type: String, required: true },
-  womanName: { type: String, required: true },
-  startDate: { type: String, required: true },
-  startTime: { type: String, required: true },
-  message: { type: String, default: "" },
-  youtubeLink: { type: String, default: "" },
-  photoId: { type: mongoose.Types.ObjectId, required: true, ref: "Photo" },
-});
 
 const PurchaseSchema: Schema = new Schema({
   slug: { type: String, required: true, unique: true },
@@ -38,7 +26,15 @@ const PurchaseSchema: Schema = new Schema({
   qr_code: { type: String, default: "" },
   paymentStatus: { type: String, default: "pending" },
   created: { type: Date, default: Date.now },
-  data: { type: PurchaseDataSchema, required: true },
+  data: {
+    manName: { type: String, required: true },
+    womanName: { type: String, required: true },
+    startDate: { type: String, required: true },
+    startTime: { type: String, required: true },
+    message: { type: String, default: "" },
+    youtubeLink: { type: String, default: "" },
+    photos: { type: [String], required: true, default: [] },
+  },
 });
 
 const PurchaseModel = mongoose.model<Purchase>("Purchase", PurchaseSchema);
