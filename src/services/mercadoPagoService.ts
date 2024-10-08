@@ -11,7 +11,7 @@ export const createCodePix = async (req: Request) => {
       email: body?.email,
     },
     payment_method_id: "pix",
-    transaction_amount: 0.01,
+    transaction_amount: 37,
     installments: 1,
     notification_url: `${process.env.URL_WEBHOOK}/api/notification`,
   };
